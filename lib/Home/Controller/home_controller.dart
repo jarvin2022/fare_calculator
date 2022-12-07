@@ -11,7 +11,6 @@ class HomeController extends GetxController {
 
   final Rxn<TransactionModel>? transaction = Rxn<TransactionModel>(null).obs();
 
-  final String googleApiKey = "AIzaSyCbS_RvBBvvV-Cp8yZ3vfZGDNfNaVenyMc";
 
   CameraPosition initialGooglePlex = const CameraPosition(
     target: LatLng(6.913584, 122.061091),
