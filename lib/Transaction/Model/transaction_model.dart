@@ -69,4 +69,28 @@ class TransactionModel {
     double total = transactionBaseRate.value + additionalFeePerRate() + addFee;
     transactionFare.value = total;
   }
+
+  String retrieveTimeTravel() {
+    DateTime from = startDate;
+    DateTime to = DateTime.now();
+
+    String travelTime = '';
+    int minTravel = (to.difference(from).inMinutes).round();
+
+    if (minTravel == 60) {
+      int hour = to.difference(from).inHours;
+      travelTime = '${hour.toString()} hr';
+      return travelTime;
+    }
+
+    if (minTravel > 60) {
+      int hour = to.difference(from).inHours;
+      int min = minTravel - (hour * 60);
+      travelTime = '${hour.toString()} hr ${min.toString()} mins';
+      return travelTime;
+    }
+
+    travelTime = '${minTravel.toString()} ${minTravel == 1 ? "min" : "mins"}';
+    return travelTime;
+  }
 }

@@ -7,6 +7,7 @@ class FareController extends GetxController {
 
   Rxn<FareModel> fare = Rxn<FareModel>(null).obs();
 
+  final String fareCollectionID = 'dUcidviCEF2jr8KDKRR7';
   RxString exception = ''.obs;
 
   @override
@@ -23,6 +24,7 @@ class FareController extends GetxController {
         if (status) initializedFareSetting();
         return;
       }
+
       fare.value =
           FareModel.fromJSON(json.data() as Map<String, dynamic>, json.id);
       fare.value!.fareBaseRate.value =
@@ -36,23 +38,16 @@ class FareController extends GetxController {
 
   Future<DocumentSnapshot> requestGetFareCollection() async {
     return await firebaseFirestore
-        .collection(userCollection)
-        .doc(firebaseAuth.currentUser!.uid)
         .collection(fareCollection)
-        .doc(firebaseAuth.currentUser!.uid)
+        .doc(fareCollectionID)
         .get();
   }
 
   bool postFareSetting() {
-    firebaseFirestore
-        .collection(userCollection)
-        .doc(firebaseAuth.currentUser!.uid)
-        .collection(fareCollection)
-        .doc(firebaseAuth.currentUser!.uid)
-        .set({
+    firebaseFirestore.collection(fareCollection).doc(fareCollectionID).set({
       'fare_date': DateTime.now(),
       'fare_distance': '1 km',
-      'fare_base_rate': 25,
+      'fare_base_rate': 20,
       'fare_rate': 5,
     }).catchError((err) {
       return;
@@ -63,12 +58,7 @@ class FareController extends GetxController {
   void updateBaseRate() => requestUpdateBaseRate();
 
   void requestUpdateBaseRate() {
-    firebaseFirestore
-        .collection(userCollection)
-        .doc(firebaseAuth.currentUser!.uid)
-        .collection(fareCollection)
-        .doc(firebaseAuth.currentUser!.uid)
-        .update({
+    firebaseFirestore.collection(fareCollection).doc(fareCollectionID).update({
       'fare_base_rate': double.parse(baserate.text),
       'fare_rate': double.parse(rate.text),
       'fare_date': DateTime.now(),

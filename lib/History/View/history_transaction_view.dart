@@ -180,19 +180,37 @@ class HistoryTransactionView extends StatelessWidget {
 
   Widget transactionDetails() {
     return Column(children: [
-      const SizedBox(height: 30),
+      const SizedBox(height: 10),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const TextWidget(
+            title: 'Date :',
+            fontSized: 14,
+            fontWeight: FontWeight.w400,
+          ),
+          const SizedBox(width: 10),
+          TextWidget(
+            title:
+                "${historyModel!.getDate()} ${historyModel!.getTimeStart()} ",
+            fontSized: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ],
+      ),
+      const SizedBox(height: 10),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const TextWidget(
             title: 'Passenger:',
-            fontSized: 16,
+            fontSized: 14,
             fontWeight: FontWeight.w400,
           ),
           const SizedBox(width: 10),
           TextWidget(
             title: historyModel!.historyNumberOfPassenger!.toString(),
-            fontSized: 18,
+            fontSized: 16,
             fontWeight: FontWeight.w500,
           ),
         ],
@@ -203,13 +221,13 @@ class HistoryTransactionView extends StatelessWidget {
         children: [
           const TextWidget(
             title: 'Distance Travel:',
-            fontSized: 16,
+            fontSized: 14,
             fontWeight: FontWeight.w400,
           ),
           const SizedBox(width: 10),
           TextWidget(
             title: historyModel!.historyDistance!,
-            fontSized: 18,
+            fontSized: 16,
             fontWeight: FontWeight.w500,
           ),
         ],
@@ -220,13 +238,13 @@ class HistoryTransactionView extends StatelessWidget {
         children: [
           const TextWidget(
             title: 'Duration Travel:',
-            fontSized: 16,
+            fontSized: 14,
             fontWeight: FontWeight.w400,
           ),
           const SizedBox(width: 10),
           TextWidget(
-            title: historyModel!.historyDuration,
-            fontSized: 18,
+            title: historyModel!.historyDuration!,
+            fontSized: 16,
             fontWeight: FontWeight.w500,
           ),
         ],
@@ -237,13 +255,13 @@ class HistoryTransactionView extends StatelessWidget {
         children: [
           const TextWidget(
             title: 'Additional Fee:',
-            fontSized: 16,
+            fontSized: 14,
             fontWeight: FontWeight.w400,
           ),
           const SizedBox(width: 10),
           TextWidget(
             title: historyModel!.additionNameFee(),
-            fontSized: 18,
+            fontSized: 16,
             fontWeight: FontWeight.w500,
           ),
         ],
@@ -254,13 +272,13 @@ class HistoryTransactionView extends StatelessWidget {
         children: [
           const TextWidget(
             title: 'Base Rate:',
-            fontSized: 16,
+            fontSized: 14,
             fontWeight: FontWeight.w400,
           ),
           const SizedBox(width: 10),
           TextWidget(
             title: PriceClass().priceFormat(historyModel!.historyFare!),
-            fontSized: 18,
+            fontSized: 16,
             fontWeight: FontWeight.w500,
           ),
         ],
@@ -274,18 +292,18 @@ class HistoryTransactionView extends StatelessWidget {
         children: [
           const TextWidget(
             title: 'Total Fare :',
-            fontSized: 18,
+            fontSized: 15,
             fontWeight: FontWeight.w400,
           ),
           const SizedBox(width: 10),
           TextWidget(
             title: PriceClass().priceFormat(historyModel!.historyFare!),
-            fontSized: 22,
+            fontSized: 20,
             fontWeight: FontWeight.w500,
           ),
         ],
       ),
-      const SizedBox(height: 50),
+      const SizedBox(height: 60),
       SizedBox(
         width: Get.width,
         height: 40,

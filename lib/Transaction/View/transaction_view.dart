@@ -124,12 +124,9 @@ class TransactionView extends GetView<UserController> {
                                         const SizedBox(width: 10),
                                         Obx(
                                           () => TextWidget(
-                                            title: controller
-                                                .hcontroller!
-                                                .transaction!
-                                                .value!
-                                                .transactionDuration
-                                                .value,
+                                            title: controller.hcontroller!
+                                                .transaction!.value!
+                                                .retrieveTimeTravel(),
                                             fontSized: 18,
                                             fontWeight: FontWeight.w500,
                                           ),

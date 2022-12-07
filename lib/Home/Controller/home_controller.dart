@@ -206,7 +206,7 @@ class HomeController extends GetxController {
     await firebaseFirestore.collection(historyCollection).add({
       'history_userID': firebaseAuth.currentUser!.uid,
       'history_distance': transaction!.value!.transactionDistance.value,
-      'history_duration': transaction!.value!.transactionDuration.value,
+      'history_duration': transaction!.value!.retrieveTimeTravel(),
       'history_fare': transaction!.value!.transactionFare.value,
       'history_start_point':
           convertLatLngGeoPoint(transaction!.value!.transactionStartLocation!),

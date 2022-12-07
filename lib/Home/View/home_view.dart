@@ -193,7 +193,7 @@ class HomeView extends GetView<UserController> {
   Widget topJourneyStart() {
     return SizedBox(
       width: Get.width,
-      height: 172,
+      height: 180,
       child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Stack(
@@ -242,17 +242,19 @@ class HomeView extends GetView<UserController> {
                         color: Color.fromARGB(255, 78, 176, 18),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 15.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Obx(
                                   () => TextWidget(
                                     title:
-                                        'Duration : ${controller.hcontroller?.transaction!.value!.transactionDuration.value ?? "1 mins"}',
+                                        'Duration : ${controller.hcontroller?.transaction!.value!.retrieveTimeTravel()}',
                                     fontSized: 14,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white,
@@ -270,14 +272,12 @@ class HomeView extends GetView<UserController> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 20),
                             const Divider(
                               thickness: 1,
                               color: Colors.white,
-                              indent: 30,
-                              endIndent: 30,
+                              indent: 15,
+                              endIndent: 15,
                             ),
-                            const SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -313,7 +313,7 @@ class HomeView extends GetView<UserController> {
                 ),
               ),
               Positioned(
-                  top: 3,
+                  top: 0,
                   child: SizedBox(
                     width: Get.width,
                     child: Row(

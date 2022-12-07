@@ -46,4 +46,10 @@ class HistoryModel {
       historyNumberOfPassenger! > 2 ? (historyNumberOfPassenger! - 2) * 5 : 0;
 
   String additionNameFee() => PriceClass().priceFormat(additionalFee());
+
+  String getDate() =>
+      DateFormatClass.getDateTime(historyStartTrip!).getTodayDateToString();
+
+  String getTimeStart() =>
+      DateFormatClass.getDateTime(historyStartTrip!).getCurrentTimeToString();
 }

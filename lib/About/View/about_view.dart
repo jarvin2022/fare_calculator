@@ -106,7 +106,7 @@ class AboutView extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   const TextWidget(
-                    title: 'Some One Else',
+                    title: 'Asiya A. Lingkatan',
                     color: Color.fromARGB(255, 79, 88, 88),
                     fontSized: 12,
                     fontWeight: FontWeight.w400,

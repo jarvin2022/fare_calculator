@@ -10,7 +10,7 @@ class FareUpdateView extends GetView<FareController> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const TextWidget(
-          title: 'Account ',
+          title: 'Fare Rate',
           fontSized: 20,
           fontWeight: FontWeight.w600,
           color: Color.fromARGB(255, 79, 88, 88),
@@ -58,6 +58,7 @@ class FareUpdateView extends GetView<FareController> {
             padding: const EdgeInsets.only(left: 25.0, right: 25.0),
             child: Column(
               children: [
+                const SizedBox(height: 25),
                 SizedBox(
                     width: 200,
                     height: 200,
@@ -68,37 +69,61 @@ class FareUpdateView extends GetView<FareController> {
                   child: const TextWidget(
                     textAlign: TextAlign.center,
                     title:
-                        'Change base rate or fare rate per km, commuter must follow the standard rate of municifality if caught manipulating the fare rate will pay double the fare of the transaction ',
+                        'This is standard tricycle fare rate for Zamboanga City, strict policy drivers must follow the standard rate caught violating the policy will be fine.',
                   ),
                 ),
                 const SizedBox(height: 40),
-                TextFormWidget(
-                  prefixIcon: Icons.rate_review_rounded,
-                  controller: controller.baserate,
-                  label: 'Base rate',
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextWidget(
+                        title: 'Effective Starting ',
+                        fontSized: 14,
+                      ),
+                      TextWidget(
+                        title: DateFormatClass.getDateTime(
+                                controller.fare.value!.fareDate!)
+                            .getTodayDateToString(),
+                        fontSized: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ]),
+                const SizedBox(height: 10),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextWidget(title: 'Fare Base Rate '),
+                      TextWidget(
+                        title: PriceClass().priceFormat(
+                            controller.fare.value!.fareBaseRate.value),
+                        fontSized: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ]),
+                const SizedBox(height: 10),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextWidget(title: 'Fare Additional Rate '),
+                      TextWidget(
+                        title: PriceClass()
+                            .priceFormat(controller.fare.value!.fareRate.value),
+                        fontSized: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ]),
+                const SizedBox(height: 10),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextWidget(title: 'Distance '),
+                      TextWidget(
+                        title: controller.fare.value!.fareDistance,
+                        fontSized: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ]),
                 const SizedBox(height: 30),
-                TextFormWidget(
-                  prefixIcon: Icons.rate_review_rounded,
-                  controller: controller.rate,
-                  label: 'Additional Rate',
-                ),
-                const SizedBox(height: 30),
-                SizedBox(
-                  width: Get.width,
-                  child: MaterialButton(
-                    color: const Color.fromARGB(255, 78, 176, 18),
-                    onPressed: () {
-                      controller.updateBaseRate();
-                    },
-                    child: const TextWidget(
-                      title: 'Save',
-                      fontSized: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
               ],
             ),
           ),
