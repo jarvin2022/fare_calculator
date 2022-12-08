@@ -90,7 +90,7 @@ class AboutView extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   const TextWidget(
-                    title: 'Yason Jarvin',
+                    title: 'Jarvin Darel S. Yazon',
                     color: Color.fromARGB(255, 79, 88, 88),
                     fontSized: 12,
                     fontWeight: FontWeight.w400,
@@ -98,7 +98,7 @@ class AboutView extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   const TextWidget(
-                    title: 'Kebin Clark B. Cuevas',
+                    title: 'Kevin Clark B. Cuevas',
                     color: Color.fromARGB(255, 79, 88, 88),
                     fontSized: 12,
                     fontWeight: FontWeight.w400,
