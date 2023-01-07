@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:farecalculator/packages.dart';
 
-class HistoryTransactionView extends StatelessWidget {
+class HistoryTransactionView extends GetView<UserController> {
   HistoryTransactionView({Key? key, this.historyModel}) : super(key: key);
 
   final HistoryModel? historyModel;
@@ -303,7 +303,24 @@ class HistoryTransactionView extends StatelessWidget {
           ),
         ],
       ),
-      const SizedBox(height: 60),
+      const SizedBox(height: 30),
+      SizedBox(
+        width: Get.width,
+        height: 40,
+        child: MaterialButton(
+          color:Colors.red,
+          onPressed: () {
+            controller.hicontroller!.getRiderInfo(historyModel!.historyRiderID!);
+          },
+          child: const TextWidget(
+            title: 'Report',
+            color: Colors.white,
+            fontSized: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      const SizedBox(height: 20),
       SizedBox(
         width: Get.width,
         height: 40,

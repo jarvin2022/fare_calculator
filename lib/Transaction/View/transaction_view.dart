@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:farecalculator/packages.dart';
 
 class TransactionView extends GetView<UserController> {

@@ -2,6 +2,8 @@ import 'package:farecalculator/packages.dart';
 
 class TransactionModel {
   final String? transactionID;
+  String? transactionRef;
+  String? transactionRiderID;
   final LatLng? transactionStartLocation;
   LatLng? transactionEndLocation;
   final RxString transactionDistance = '0 m'.obs;

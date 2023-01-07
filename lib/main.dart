@@ -1,3 +1,5 @@
+import 'package:farecalculator/History/View/report_rider_view.dart';
+import 'package:farecalculator/Home/View/scan_qr_view.dart';
 import 'package:farecalculator/packages.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:farecalculator/Home/View/home_view.dart';
@@ -48,7 +50,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: accountRoute, page: () => const AccountView()),
         GetPage(
             name: passwordRoute, page: () => const AccountChangePasswordView()),
-        GetPage(name: transactionRoute, page: () => const TransactionView())
+        GetPage(name: transactionRoute, page: () => const TransactionView()),
+        GetPage(name: scanRoute, page: () => const ScanQrView()),
+        GetPage(name: reportRoute, page: () => const ReportRiderView())
       ],
     );
   }

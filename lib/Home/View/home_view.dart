@@ -12,7 +12,7 @@ class HomeView extends GetView<UserController> {
         toolbarHeight: 50,
         backgroundColor: Colors.white,
         title: const TextWidget(
-          title: 'Tricy Fair Calculator',
+          title: 'Tricy Fare Calculator',
           color: Color.fromARGB(255, 79, 88, 88),
           fontSized: 20,
           fontWeight: FontWeight.w600,
@@ -359,7 +359,7 @@ class HomeView extends GetView<UserController> {
             child: MaterialButton(
                 onPressed: () {
                   if (controller.hcontroller?.transaction?.value == null) {
-                    controller.hcontroller!.startNavigation();
+                    Get.toNamed('/scan');
                     return;
                   }
                   Get.toNamed(transactionRoute);

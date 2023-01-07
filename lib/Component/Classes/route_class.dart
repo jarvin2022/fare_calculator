@@ -11,3 +11,6 @@ const String rateRoute = '/rate';
 const String termsRoute = '/terms';
 const String passwordRoute = '/password';
 const String transactionRoute = '/transaction';
+const String scanRoute = '/scan';
+
+const String reportRoute = '/report';

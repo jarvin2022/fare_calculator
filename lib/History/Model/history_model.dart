@@ -11,6 +11,7 @@ class HistoryModel {
   final DateTime? historyStartTrip;
   final DateTime? historyEndTrip;
   final int? historyNumberOfPassenger;
+  final String? historyRiderID;
 
   HistoryModel({
     this.historyID,
@@ -23,6 +24,7 @@ class HistoryModel {
     this.historyStartTrip,
     this.historyEndTrip,
     this.historyNumberOfPassenger,
+    this.historyRiderID,
   });
 
   HistoryModel.toJson(Map<String, dynamic> res, String id)
@@ -39,6 +41,7 @@ class HistoryModel {
           historyStartTrip: convertTs(res['history_start_trip'] as Timestamp),
           historyEndTrip: convertTs(res['history_end_trip'] as Timestamp),
           historyNumberOfPassenger: res['history_number_passenger'] as int,
+          historyRiderID: res['history_driver_ID'] as String,
         );
 
   //Additional fee for number of passenger

@@ -2,12 +2,21 @@ import 'package:farecalculator/packages.dart';
 import 'package:location/location.dart' as loc;
 import 'dart:async';
 import 'package:farecalculator/main.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class HomeController extends GetxController {
   GoogleMapController? googleMapController;
   final Completer<GoogleMapController> completer = Completer();
 
   final Rxn<Set<Polyline>> polylines = Rxn<Set<Polyline>>({}).obs();
+  
+  Rxn<QRViewController?> controller = Rxn<QRViewController>(null).obs();
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  Rxn<Barcode>? result = Rxn<Barcode>(null).obs();
+  RxBool isQRRiderID = false.obs;
+  RxBool checkingQR = false.obs;
+  RxString qr = ''.obs;
+  Rxn<Color> barCodeColor = Rxn<Color>(Colors.orange).obs();
 
   final Rxn<TransactionModel>? transaction = Rxn<TransactionModel>(null).obs();
 
@@ -38,6 +47,7 @@ class HomeController extends GetxController {
 
   List<String> numberOfPassenger = ["1", "2", "3", "4", "5"];
   RxInt selectedNumberOfPassenger = 0.obs;
+
 
   @override
   void onInit() {
@@ -95,6 +105,19 @@ class HomeController extends GetxController {
     super.onReady();
     moveCameraToUser();
   }
+  
+  void checkQr(String value)async{
+    DocumentSnapshot data = await firebaseFirestore.collection("Driver_Collection").doc(value).get();
+    if(data.exists){
+      barCodeColor.value = Colors.green;
+      startNavigation();
+    }else{
+          barCodeColor.value = Colors.red;
+      print('doesnt exist');
+      checkingQR.value = false;
+      qr.value = '';
+    }
+  }
 
   void moveCameraToUser() async {
     LatLng? myLocationPoint = await currentLocation();
@@ -111,7 +134,7 @@ class HomeController extends GetxController {
 
   //// [selectedNumberOfPassenger] number of passenger, if passenger is greater than 1
   /// a 5 peso additional for the other passenger
-  void startNavigation() {
+  void startNavigation() async{
     try {
       retrieveBaseFare();
       LatLng? startLocation = mypointLocation.value;
@@ -127,10 +150,24 @@ class HomeController extends GetxController {
         transaction!.value!.initializedBaseFareRate(baseFare.value);
         transaction!.value!.initializedFareRate(rate.value);
         transaction!.value!.retrieveFare();
+        
+        DocumentReference data = await registerTranctation(transaction!.value!.numberOfPassenger!);
+        transaction!.value!.transactionRef = data.id;
+        transaction!.value!.transactionRiderID = result!.value!.code.toString();
+        Get.back();
       }
     } catch (e) {
       exception.value = e.toString();
     }
+  }
+
+  Future<DocumentReference> registerTranctation(int passenger)async{
+    return await firebaseFirestore.collection(transactionCollection).add({
+        'transaciton_userID':firebaseAuth.currentUser!.uid,
+        'transaction_rider':result!.value!.code,
+        'transaction_passenger_qty':passenger,
+        'transaction_status':false,
+      });
   }
 
   void retrieveBaseFare() {
@@ -214,7 +251,19 @@ class HomeController extends GetxController {
       'history_start_trip': transaction!.value!.startDate,
       'history_end_trip': DateTime.now(),
       'history_number_passenger': transaction!.value!.numberOfPassenger!,
-    }).then((value) => resetTransaction());
+      'history_driver_ID':transaction!.value!.transactionRiderID
+    }).then((value) =>{
+      updateTransactionStatus()});
+  }
+
+
+  void updateTransactionStatus()async{ 
+    await firebaseFirestore.collection(transactionCollection).doc(transaction!.value!.transactionRef).update({
+      "transaction_status":true
+    });
+    qr.value == '';
+    checkingQR.value = false;
+    resetTransaction();
   }
 
   void resetTransaction() {
