@@ -1,7 +1,7 @@
 import 'package:farecalculator/History/Model/user_rider_model.dart';
 import 'package:farecalculator/main.dart';
 import 'package:farecalculator/packages.dart';
-// import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class HistoryController extends GetxController {
   RxList<HistoryModel> historyList = RxList<HistoryModel>([]).obs();
@@ -56,17 +56,17 @@ class HistoryController extends GetxController {
 
   void reportSendToEmail()async{
     try{
-      // final Email email = Email(
-      //   body: report.text,
-      //   subject: 'Report Rider',
-      //   recipients: ['tristanjayamit0813@gmail.com'],
-      //   cc: ['Tricycleadjudicationboard007@example.com'],
-      //   bcc: ['Tricycleadjudicationboard007@example.com'],
-      //   isHTML: false,
-      // );
+      final Email email = Email(
+        body: report.text,
+        subject: 'Report Rider',
+        recipients: ['tristanjayamit0813@gmail.com'],
+        isHTML: false,
+      );
 
-      // await FlutterEmailSender.send(email).then((value) => sendReport.value = true)
-      //   .onError((error, stackTrace) => throw Exception(error));
+      
+
+      await FlutterEmailSender.send(email).then((value) => sendReport.value = true)
+        .onError((error, stackTrace) => throw Exception(error));
     }catch(e){
       print(e.toString());
     }
